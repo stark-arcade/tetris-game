@@ -1,5 +1,5 @@
-import React from 'react';
-import { ROWPOINTS } from '../setup';
+import React from "react";
+import { ROWPOINTS } from "../utils/setup";
 
 export const useGameStatus = (rowsCleared: number) => {
   const [score, setScore] = React.useState(0);
@@ -8,8 +8,8 @@ export const useGameStatus = (rowsCleared: number) => {
 
   React.useEffect(() => {
     if (rowsCleared > 0) {
-      setScore(prev => prev + ROWPOINTS[rowsCleared - 1] * level);
-      setRows(prev => prev + rowsCleared);
+      setScore((prev) => prev + ROWPOINTS[rowsCleared - 1] * level);
+      setRows((prev) => prev + rowsCleared);
     }
   }, [rowsCleared]);
 

@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
+// Setting Interval Hook and clear it when over
 export function useInterval(callback: () => void, delay: number | null) {
   const savedCallback = useRef<null | (() => void)>(null);
-  // Remember the latest callback.
+
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
-  // Set up the interval.
   useEffect(() => {
     function tick(): void {
       if (savedCallback.current) savedCallback.current();
