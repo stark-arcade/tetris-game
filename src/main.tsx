@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createGlobalStyle } from 'styled-components';
-import App from './App';
-import bgImage from './img/bg.jpg';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createGlobalStyle } from "styled-components";
+import App from "./App";
+import bgImage from "./img/bg.svg";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -19,5 +19,5 @@ ReactDOM.render(
     <GlobalStyles />
     <App />
   </>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
