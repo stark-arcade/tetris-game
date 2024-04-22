@@ -1,5 +1,5 @@
-import Image from "next/image";
+import PlayScreen from "./components/Screen/PlayScreen";
 
 export default function Home() {
-  return <>sds</>;
+  return <PlayScreen />;
 }
