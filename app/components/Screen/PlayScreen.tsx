@@ -1,21 +1,15 @@
+"use client";
 import React from "react";
-import { createStage, isColliding } from "./utils/gameHelpers";
-
-// Custom hooks
-import { useInterval } from "./hooks/useInterval";
-import { usePlayer } from "./hooks/usePlayer";
-import { useStage } from "./hooks/useStage";
-import { useGameStatus } from "./hooks/useGameStatus";
-
-// Components
-import Stage from "./components/Stage/Stage";
-import Display from "./components/Display/Display";
-import StartButton from "./components/StartButton/StartButton";
-
-// Styles
-import { StyledTetrisWrapper, StyledTetris } from "./App.styles";
-
-const App: React.FC = () => {
+import { usePlayer } from "../../hooks/usePlayer";
+import { useStage } from "../../hooks/useStage";
+import { StyledTetrisWrapper, StyledTetris } from "./Screen.styles";
+import { useGameStatus } from "../../hooks/useGameStatus";
+import { createStage, isColliding } from "../../utils/gameHelpers";
+import { useInterval } from "../../hooks/useInterval";
+import Display from "../Display/Display";
+import StartButton from "../StartButton/StartButton";
+import Stage from "../Stage/Stage";
+const PlayScreen = () => {
   const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(true);
 
@@ -130,4 +124,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default PlayScreen;
