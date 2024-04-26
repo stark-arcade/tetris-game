@@ -4,4 +4,6 @@ body {
   background: url("./img/bg.svg") #000;
   background-size: cover;
   background-position: center;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
 }

@@ -83,7 +83,6 @@ const PlayScreen = () => {
     } else {
       // Game over!
       if (player.pos.y < 1) {
-        console.log("Game over!");
         setGameOver(true);
         setDroptime(null);
       }

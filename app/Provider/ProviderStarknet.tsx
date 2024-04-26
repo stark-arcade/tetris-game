@@ -12,7 +12,6 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
     new InjectedConnector({ options: { id: "braavos", name: "Braavos" } }),
     // new ArgentMobileConnector(),
   ];
-
   return (
     <StarknetConfig
       chains={[sepolia]}
