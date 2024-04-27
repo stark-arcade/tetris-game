@@ -7,4 +7,5 @@ export interface IInitialState {
   user: string | null;
   isLoading: boolean;
   chainId: number | null;
+  sound: boolean;
 }

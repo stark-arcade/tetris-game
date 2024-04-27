@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import "./globals.css";
 import ProviderApp from "../Provider/ProviderApp";
 import Favicon from "@/app/favicon.ico";
-const inter = Inter({ subsets: ["latin"] });
-
+import { Nunito_Sans } from "next/font/google";
+const nutino = Nunito_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Teris Game | StarkArcade Hub",
   metadataBase: new URL("https://teris-game.starkarcade.com/"),
@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nutino.className}>
         <ProviderApp>{children}</ProviderApp>
       </body>
     </html>
