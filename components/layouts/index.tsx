@@ -8,7 +8,7 @@ import { setChainId, setUser } from "@/redux/user/user-slice";
 import StartScreen from "./StartScreen/StartScreen";
 
 const MainScreen = () => {
-  const { user, isLoading, chainId } = useAuth();
+  const { user, isLoading, chainId, sound } = useAuth();
   const { address, status } = useAccount();
   const { connect, connectors } = useConnect();
 
@@ -55,6 +55,9 @@ const MainScreen = () => {
       {user ? <PlayScreen /> : <StartScreen />}
 
       <div className="asset-bg " />
+      <audio autoPlay={sound} style={{}}>
+        <source src="/sounds/bg_music.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   );
 };

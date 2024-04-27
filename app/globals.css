@@ -210,8 +210,8 @@ Css style Modal - Tailwind css by  normal code
   cursor: pointer;
   display: flex;
   border: none;
-  width: 85px;
-  height: 80px;
+  width: 65px;
+  height: 60px;
   align-items: center;
   justify-content: center;
   background: url("/assets/btn/icon_btn.svg");
@@ -223,4 +223,10 @@ Css style Modal - Tailwind css by  normal code
   background: url("/assets/btn/icon_btn_hover.svg");
   background-size: cover;
   background-position: center;
+}
+.stat-control {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
 }

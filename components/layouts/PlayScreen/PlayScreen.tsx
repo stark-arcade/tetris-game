@@ -113,6 +113,7 @@ const PlayScreen = () => {
     await disconnect();
     dispatch(setUserLoading(false));
   };
+
   return (
     <StyledTetrisWrapper
       role="button"
@@ -171,7 +172,7 @@ const PlayScreen = () => {
             </>
           ) : (
             <>
-              <div className="stat-wrapper">
+              <div className="stat-control">
                 <div className="stat-rows">
                   <p>{`Score: ${score}`}</p>
                   <p>{`Rows: ${score}`}</p>
@@ -182,7 +183,12 @@ const PlayScreen = () => {
                   <StyledBlockCorner right={0} top={0} rotate={90} />
                   <StyledBlockCorner bottom={0} right={0} rotate={180} />
                 </div>
-                <div className="stat-control">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
                   <button
                     className="icon_btn"
                     onClick={() => {
