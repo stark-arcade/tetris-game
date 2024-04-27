@@ -6,9 +6,9 @@ import { StyledTetrisWrapper, StyledTetris } from "./Screen.styles";
 import { useGameStatus } from "../../hooks/useGameStatus";
 import { createStage, isColliding } from "../../utils/gameHelpers";
 import { useInterval } from "../../hooks/useInterval";
-import Display from "../Display/Display";
-import StartButton from "../StartButton/StartButton";
-import Stage from "../Stage/Stage";
+import Display from "../../components/Display/Display";
+import StartButton from "../../components/StartButton/StartButton";
+import Stage from "../../components/Stage/Stage";
 const PlayScreen = () => {
   const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(true);

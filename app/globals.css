@@ -1,9 +1,88 @@
 body {
   margin: 0;
   padding: 0;
-  background: url("./img/bg.svg") #000;
+  box-sizing: border-box;
+  height: 100vh;
+}
+.asset-bg {
+  background: url("/assets/arts/group.svg");
   background-size: cover;
   background-position: center;
-  box-sizing: border-box;
+  position: absolute;
+  object-fit: contain;
+  bottom: 0;
+  height: 400px;
+  width: 100%;
+  z-index: -1;
   background-repeat: no-repeat;
+}
+
+/**
+Css style Modal - Tailwind css by  normal code
+*/
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.bg-black {
+  background-color: black;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.bg-opacity-60 {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.p-2 {
+  padding: 0.5rem;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.w-10\/12 {
+  width: 83.333333%;
+}
+
+.md\:w-1\/2 {
+  width: 50%;
+}
+
+.lg\:1\/3 {
+  width: 33.333333%;
+}
+
+.shadow-inner {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.border-e-emerald-600 {
+  border-color: #38b2ac;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }

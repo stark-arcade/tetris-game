@@ -6,7 +6,7 @@ const ProviderScript = () => {
     <>
       <Script
         async
-        src="https://www.googletagmanager.com/gtag/js?id=G-4471GEE5EK"
+        src="https://www.googletagmanager.com/gtag/js?id=G-HRQPR23M9B"
       ></Script>
 
       <Script id="google-analytics">
@@ -14,7 +14,7 @@ const ProviderScript = () => {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-4471GEE5EK');
+        gtag('config', 'G-HRQPR23M9B');
         gtag('send', 'pageview');
         `}
       </Script>

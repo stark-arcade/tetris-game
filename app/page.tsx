@@ -1,5 +1,9 @@
-import PlayScreen from "./components/Screen/PlayScreen";
+import MainScreen from "./layouts/Screen";
 
 export default function Home() {
-  return <PlayScreen />;
+  return (
+    <>
+      <MainScreen />
+    </>
+  );
 }
