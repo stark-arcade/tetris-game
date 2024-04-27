@@ -1,24 +1,22 @@
 "use client";
+import { useGameStatus } from "@/hooks/useGameStatus";
+import { usePlayer } from "@/hooks/usePlayer";
+import { useStage } from "@/hooks/useStage";
+import { createStage, isColliding } from "@/utils/gameHelpers";
 import React, { useEffect } from "react";
-import { usePlayer } from "../../../hooks/usePlayer";
-import { useStage } from "../../../hooks/useStage";
-import { StyledTetrisWrapper, StyledTetris } from "./PlayScreen.styles";
-import { useGameStatus } from "../../../hooks/useGameStatus";
-import { createStage, isColliding } from "../../../utils/gameHelpers";
-import { useInterval } from "../../../hooks/useInterval";
-import Image from "next/image";
-import Stage from "../../Stage/Stage";
+import { StyledTetris, StyledTetrisWrapper } from "./PlayScreen.styles";
+import { useInterval } from "@/hooks/useInterval";
+
+import Stage from "@/components/Stage/Stage";
 import { StyledBlockCorner } from "../StartScreen/StartScreen.styles";
+import Image from "next/image";
+import { useDisconnect } from "@starknet-react/core";
+import { logout, setUserLoading } from "@/redux/user/user-slice";
+import { useDispatch } from "react-redux";
 import Modal from "@/components/Modal";
 import StarScore from "@/components/Stage/StarScore";
 import { StyledPlayButton } from "@/components/Button/Button.styles";
-
-import { useDisconnect } from "@starknet-react/core";
-import { useDispatch } from "react-redux";
-import { logout, setSound, setUserLoading } from "@/redux/user/user-slice";
-import { useAuth } from "@/hooks/useAuth";
 const PlayScreen = () => {
-  const { sound } = useAuth();
   const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(false);
 
@@ -92,6 +90,7 @@ const PlayScreen = () => {
     } else {
       // Game over!
       if (player.pos.y < 1) {
+        console.log("Game over!");
         setGameOver(true);
         setDroptime(null);
       }
@@ -113,7 +112,6 @@ const PlayScreen = () => {
     await disconnect();
     dispatch(setUserLoading(false));
   };
-
   return (
     <StyledTetrisWrapper
       role="button"
@@ -175,8 +173,8 @@ const PlayScreen = () => {
               <div className="stat-control">
                 <div className="stat-rows">
                   <p>{`Score: ${score}`}</p>
-                  <p>{`Rows: ${score}`}</p>
-                  <p>{`Levels: ${score}`}</p>
+                  <p>{`Rows: ${rows}`}</p>
+                  <p>{`Levels: ${level}`}</p>
 
                   <StyledBlockCorner top={0} left={0} rotate={0} />
                   <StyledBlockCorner bottom={0} left={0} rotate={-90} />
@@ -202,12 +200,7 @@ const PlayScreen = () => {
                       width={24}
                     />
                   </button>
-                  <button
-                    className="icon_btn"
-                    onClick={async () => {
-                      await dispatch(setSound(!sound));
-                    }}
-                  >
+                  <button className="icon_btn" onClick={async () => {}}>
                     <Image
                       src="/assets/icons/sound_on.svg"
                       alt=""

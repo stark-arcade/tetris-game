@@ -11,7 +11,7 @@ export const useGameStatus = (rowsCleared: number) => {
       setScore((prev) => prev + ROWPOINTS[rowsCleared - 1] * level);
       setRows((prev) => prev + rowsCleared);
     }
-  }, [level]);
+  }, [rowsCleared]);
 
   return { score, setScore, rows, setRows, level, setLevel };
 };

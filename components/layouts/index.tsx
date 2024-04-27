@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import PlayScreen from "./PlayScreen/PlayScreen";
+
 import { useAuth } from "@/hooks/useAuth";
 import { useAccount, useConnect } from "@starknet-react/core";
 import { useDispatch } from "react-redux";
 import { setChainId, setUser } from "@/redux/user/user-slice";
 import StartScreen from "./StartScreen/StartScreen";
+
+import PlayScreen from "./PlayScreen/PlayScreen";
 
 const MainScreen = () => {
   const { user, isLoading, chainId, sound } = useAuth();
