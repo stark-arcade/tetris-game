@@ -1,8 +1,16 @@
+:root {
+  --color-1: #007ac780;
+  --color-2: #0f4b82;
+  --color-3: #8ef9f9;
+  --color4: #0b2544;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100vh;
+  background: #000;
 }
 .asset-bg {
   background: url("/assets/arts/group.svg");
