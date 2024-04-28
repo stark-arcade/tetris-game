@@ -177,7 +177,7 @@ const PlayScreen = () => {
                     <p className="value">{score}</p>
                   </div>
                   <div className="stat-col">
-                    <p className="title">Rows</p>
+                    <p className="title">Row(s)</p>
                     <p className="value">{rows}</p>
                   </div>
                   <div className="stat-col">
