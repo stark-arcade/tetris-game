@@ -1,18 +1,13 @@
 "use client";
 import React, { PropsWithChildren } from "react";
 import ProviderStarknet from "./ProviderStarknet";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "../redux/store";
+
+import ProviderWalletContext from "./ProviderWalletContext";
 
 const ProviderApp = ({ children }: PropsWithChildren) => {
   return (
     <ProviderStarknet>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {children}
-        </PersistGate>
-      </Provider>
+      <ProviderWalletContext>{children}</ProviderWalletContext>
     </ProviderStarknet>
   );
 };
