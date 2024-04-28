@@ -10,12 +10,11 @@ import { useInterval } from "@/hooks/useInterval";
 import Stage from "@/components/Stage/Stage";
 import { StyledBlockCorner } from "../StartScreen/StartScreen.styles";
 import Image from "next/image";
-import { useDisconnect } from "@starknet-react/core";
-import { logout, setUserLoading } from "@/redux/user/user-slice";
-import { useDispatch } from "react-redux";
+
 import Modal from "@/components/Modal";
 import StarScore from "@/components/Stage/StarScore";
 import { StyledPlayButton } from "@/components/Button/Button.styles";
+import { useWalletContext } from "@/Provider/ProviderWalletContext";
 const PlayScreen = () => {
   const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(false);
@@ -104,14 +103,8 @@ const PlayScreen = () => {
   useEffect(() => {
     handleStartGame();
   }, []);
-  const { disconnect } = useDisconnect();
-  const dispatch = useDispatch();
-  const handleLogout = async () => {
-    dispatch(setUserLoading(true));
-    await dispatch(logout());
-    await disconnect();
-    dispatch(setUserLoading(false));
-  };
+
+  const { disconnectWallet } = useWalletContext();
   return (
     <StyledTetrisWrapper
       role="button"
@@ -154,7 +147,7 @@ const PlayScreen = () => {
                     <button
                       className="icon_btn"
                       onClick={async () => {
-                        await handleLogout();
+                        await disconnectWallet();
                       }}
                     >
                       <Image
@@ -199,7 +192,7 @@ const PlayScreen = () => {
                   <button
                     className="icon_btn"
                     onClick={() => {
-                      handleLogout();
+                      disconnectWallet();
                     }}
                   >
                     <Image
