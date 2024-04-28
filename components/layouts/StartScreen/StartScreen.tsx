@@ -10,23 +10,14 @@ import {
 } from "./StartScreen.styles";
 import wallets from "@/config/wallet";
 import CloseButton from "@/components/Button/CloseButton";
-import { useConnect } from "@starknet-react/core";
-import { useDispatch } from "react-redux";
-import { setChainId, setSound } from "@/redux/user/user-slice";
-import { useAuth } from "@/hooks/useAuth";
+
+import { useWalletContext } from "@/Provider/ProviderWalletContext";
 
 const StartScreen = () => {
   const [isOpenConnectWallet, setIsOpenConnectWallet] = React.useState(false);
-  const { connect, connectors } = useConnect();
-  const { sound } = useAuth();
-  const dispatch = useDispatch();
-  const connectWallet = async (connectorIndex: number) => {
-    await connect({ connector: connectors[connectorIndex] });
-    await dispatch(setChainId(connectorIndex));
-    setIsOpenConnectWallet(() => {
-      return false;
-    });
-  };
+
+  const { sound } = useWalletContext();
+  const { connectWallet } = useWalletContext();
   return (
     <StyledStartScreen>
       <StyleStartScreenWrapper>
@@ -38,7 +29,7 @@ const StartScreen = () => {
             right: "10px",
           }}
           onClick={async () => {
-            await dispatch(setSound(!sound));
+            // await dispatch(setSound(!sound));
           }}
         >
           <Image

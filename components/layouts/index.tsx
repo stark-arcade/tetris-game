@@ -1,40 +1,13 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 
-import { useAuth } from "@/hooks/useAuth";
-import { useAccount, useConnect } from "@starknet-react/core";
-import { useDispatch } from "react-redux";
-import { setChainId, setUser } from "@/redux/user/user-slice";
 import StartScreen from "./StartScreen/StartScreen";
 
 import PlayScreen from "./PlayScreen/PlayScreen";
+import { useWalletContext } from "@/Provider/ProviderWalletContext";
 
 const MainScreen = () => {
-  const { user, isLoading, chainId, sound } = useAuth();
-  const { address, status } = useAccount();
-  const { connect, connectors } = useConnect();
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (address && address != user) {
-      dispatch(setUser(address));
-    }
-  }, [address]);
-
-  useEffect(() => {
-    if (chainId != null) {
-      dispatch(setChainId(chainId));
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleReConenct = async () => {
-      if (user && status === "disconnected" && chainId != null) {
-        await connect({ connector: connectors[chainId] });
-      }
-    };
-    handleReConenct();
-  }, [isLoading, address, chainId]);
+  const { address, sound } = useWalletContext();
 
   return (
     <div>
@@ -54,7 +27,7 @@ const MainScreen = () => {
         <source src="/video/bg_motion.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {user ? <PlayScreen /> : <StartScreen />}
+      {address ? <PlayScreen /> : <StartScreen />}
 
       <div className="asset-bg " />
       <audio autoPlay={sound} style={{}}>
