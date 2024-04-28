@@ -81,6 +81,7 @@ Css style Modal - Tailwind css by  normal code
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 99;
   background-color: black;
   display: flex;
   justify-content: center;
@@ -96,7 +97,7 @@ Css style Modal - Tailwind css by  normal code
   padding: 32px;
   padding-top: 12px;
   border-radius: 4px;
-  width: 480px;
+  width: 380px;
   color: white;
   p {
     font-size: 24px;

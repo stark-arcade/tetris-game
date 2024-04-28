@@ -36,7 +36,10 @@ export const StyledPlayButton = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.25rem;
-  width: 112px;
+  width: 150px;
+  span {
+    margin-left: 8px;
+  }
   &:hover {
     background: url(/assets/btn/play_btn_hover.svg);
     background-position: center;
