@@ -172,9 +172,18 @@ const PlayScreen = () => {
             <>
               <div className="stat-control">
                 <div className="stat-rows">
-                  <p>{`Score: ${score}`}</p>
-                  <p>{`Rows: ${rows}`}</p>
-                  <p>{`Levels: ${level}`}</p>
+                  <div className="stat-col">
+                    <p className="title">Score</p>
+                    <p className="value">{score}</p>
+                  </div>
+                  <div className="stat-col">
+                    <p className="title">Rows</p>
+                    <p className="value">{rows}</p>
+                  </div>
+                  <div className="stat-col">
+                    <p className="title">Level</p>
+                    <p className="value">{level}</p>
+                  </div>
 
                   <StyledBlockCorner top={0} left={0} rotate={0} />
                   <StyledBlockCorner bottom={0} left={0} rotate={-90} />
@@ -214,6 +223,12 @@ const PlayScreen = () => {
           )}
         </div>
         <Stage stage={stage} />
+        <Image
+          src="/assets/arts/teris_game.svg"
+          alt=""
+          height={112}
+          width={112}
+        />
       </StyledTetris>
     </StyledTetrisWrapper>
   );

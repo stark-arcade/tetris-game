@@ -142,6 +142,7 @@ Css style Modal - Tailwind css by  normal code
   opacity: 0.5;
 }
 
+/* Stats Container */
 .stat-rows {
   display: flex;
   align-items: center;
@@ -152,13 +153,29 @@ Css style Modal - Tailwind css by  normal code
   padding: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  p {
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 16.37px;
-    text-align: center;
-    color: rgba(59, 241, 254, 1);
-  }
+}
+.stat-rows .title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16.37px;
+  text-align: center;
+  color: rgba(59, 241, 254, 1);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.stat-rows .value {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 21.82px;
+  text-align: center;
+  color: rgba(189, 251, 255, 1);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.stat-rows .stat-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2;
 }
 
 .modal-game-over {
