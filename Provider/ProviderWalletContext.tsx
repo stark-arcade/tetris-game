@@ -36,7 +36,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
       chain_id: undefined,
       sound: false,
     },
-    24 * 60 * 60 * 1000 // 1days
+    24 * 60 * 60 * 1000 + Date.now() // 1days
   );
   const [address, setAddress] = React.useState(config.address);
   const [chain_id, setChainId] = React.useState(config.chain_id);
