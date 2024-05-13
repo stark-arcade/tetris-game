@@ -16,7 +16,7 @@ import { useWalletContext } from "@/Provider/ProviderWalletContext";
 const StartScreen = () => {
   const [isOpenConnectWallet, setIsOpenConnectWallet] = React.useState(false);
 
-  const { sound } = useWalletContext();
+  const { sound, toggleSound } = useWalletContext();
   const { connectWallet } = useWalletContext();
   return (
     <StyledStartScreen>
@@ -29,7 +29,7 @@ const StartScreen = () => {
             right: "10px",
           }}
           onClick={async () => {
-            // await dispatch(setSound(!sound));
+            toggleSound();
           }}
         >
           <Image
