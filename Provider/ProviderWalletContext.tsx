@@ -9,6 +9,7 @@ import React, {
 interface IWalletConnectionProps {
   connectWallet: (index: number) => void;
   disconnectWallet: () => void;
+  toggleSound: () => void;
   address?: string;
   sound: boolean; // turn on or off
   chain_id?: number; // SNIPPET chain ID is Argentx or Bravoos
@@ -16,6 +17,7 @@ interface IWalletConnectionProps {
 const initalValue: IWalletConnectionProps = {
   connectWallet: () => {},
   disconnectWallet: () => {},
+  toggleSound: () => {},
   sound: false,
   address: "",
   chain_id: 0,
@@ -34,7 +36,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
     {
       address: undefined,
       chain_id: undefined,
-      sound: false,
+      sound: true,
     },
     24 * 60 * 60 * 1000 + Date.now() // 1days
   );
@@ -53,6 +55,9 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
     setAddress(undefined);
     setChainId(undefined);
   };
+  const toggleSound = () => {
+    setSound(() => !sound);
+  };
   useEffect(() => {
     if (addressWallet && addressWallet !== address && chain_id != undefined) {
       setAddress(addressWallet);
@@ -70,7 +75,14 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   }, [address, chain_id]);
   return (
     <WalletContext.Provider
-      value={{ sound, address, chain_id, connectWallet, disconnectWallet }}
+      value={{
+        sound,
+        address,
+        chain_id,
+        connectWallet,
+        disconnectWallet,
+        toggleSound,
+      }}
     >
       {children}
     </WalletContext.Provider>

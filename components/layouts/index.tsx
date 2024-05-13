@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import StartScreen from "./StartScreen/StartScreen";
 
@@ -8,7 +8,18 @@ import { useWalletContext } from "@/Provider/ProviderWalletContext";
 
 const MainScreen = () => {
   const { address, sound } = useWalletContext();
-
+  const tickRef = useRef<HTMLAudioElement>(null);
+  useEffect(() => {
+    if (tickRef.current) {
+      console.log("Sound", sound);
+      if (sound) {
+        tickRef.current.volume = 1;
+        console.log("Now Ref", tickRef.current.volume);
+      } else {
+        tickRef.current.volume = 0;
+      }
+    }
+  }, [sound, tickRef]);
   return (
     <div>
       <video
@@ -30,9 +41,7 @@ const MainScreen = () => {
       {address ? <PlayScreen /> : <StartScreen />}
 
       <div className="asset-bg " />
-      <audio autoPlay={sound} style={{}}>
-        <source src="/sounds/bg_music.mp3" type="audio/mpeg" />
-      </audio>
+      <audio autoPlay={sound} loop src="/sounds/bg_music.mp3" ref={tickRef} />
     </div>
   );
 };
