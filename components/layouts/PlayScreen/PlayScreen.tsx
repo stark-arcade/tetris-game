@@ -72,10 +72,8 @@ const PlayScreen = () => {
   }): void => {
     if (!gameOver) {
       if (keyCode === 37) {
-        movePlayer(-1);
         senderCommand("left");
       } else if (keyCode === 39) {
-        movePlayer(1);
         senderCommand("right");
       } else if (keyCode === 40) {
         // Just call once
@@ -83,7 +81,6 @@ const PlayScreen = () => {
         // setDroptime(30);
         senderCommand("down");
       } else if (keyCode === 38) {
-        playerRotate(stage);
         senderCommand("up");
       }
     }
