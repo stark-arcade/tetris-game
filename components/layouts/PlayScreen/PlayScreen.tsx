@@ -15,6 +15,12 @@ import Modal from "@/components/Modal";
 import StarScore from "@/components/Stage/StarScore";
 import { StyledPlayButton } from "@/components/Button/Button.styles";
 import { useWalletContext } from "@/Provider/ProviderWalletContext";
+import {
+  connectSocket,
+  getBoardData,
+  senderCommand,
+  startGame,
+} from "@/config/socket_karas";
 const PlayScreen = () => {
   const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(false);
@@ -41,14 +47,17 @@ const PlayScreen = () => {
     }
   };
 
-  const handleStartGame = (): void => {
+  const handleStartGame = async () => {
     // Need to focus the window with the key events on start
+    connectSocket();
     if (gameArea.current) gameArea.current.focus();
     // Reset everything
-    setStage(createStage());
+    startGame();
+    const data = await getBoardData();
+
+    setStage(() => data);
     setDroptime(1000);
-    resetPlayer();
-    setScore(0);
+    await resetPlayer();
     setLevel(1);
     setRows(0);
     setGameOver(false);
@@ -64,32 +73,38 @@ const PlayScreen = () => {
     if (!gameOver) {
       if (keyCode === 37) {
         movePlayer(-1);
+        senderCommand("left");
       } else if (keyCode === 39) {
         movePlayer(1);
+        senderCommand("right");
       } else if (keyCode === 40) {
         // Just call once
-        if (repeat) return;
-        setDroptime(30);
+        // if (repeat) return;
+        // setDroptime(30);
+        senderCommand("down");
       } else if (keyCode === 38) {
         playerRotate(stage);
+        senderCommand("up");
       }
     }
   };
 
-  const drop = (): void => {
+  const drop = async () => {
+    const data = await getBoardData();
+    console.log("Now Data", data);
+    // setStage(() => data);
     // Increase level when player has cleared 10 rows
-    if (rows > level * 10) {
-      setLevel((prev) => prev + 1);
-      // Also increase speed
-      setDroptime(1000 / level + 200);
-    }
+    // if (rows > level * 10) {
+    //   setLevel((prev) => prev + 1);
+    //   // Also increase speed
+    //   setDroptime(1000 / level + 200);
+    // }
 
     if (!isColliding(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
       // Game over!
       if (player.pos.y < 1) {
-        console.log("Game over!");
         setGameOver(true);
         setDroptime(null);
       }
@@ -97,9 +112,9 @@ const PlayScreen = () => {
     }
   };
 
-  useInterval(() => {
-    drop();
-  }, dropTime);
+  // useInterval(() => {
+  //   drop();
+  // }, dropTime);
   useEffect(() => {
     handleStartGame();
   }, []);
