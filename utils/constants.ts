@@ -5,3 +5,4 @@ export enum RPC_VALUE {
 }
 
 export type Direction = "up" | "right" | "down" | "left";
+export const DEFAULT_DROP_TIME = 1000;

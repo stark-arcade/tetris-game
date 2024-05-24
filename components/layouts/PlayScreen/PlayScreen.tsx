@@ -22,27 +22,18 @@ import {
   startGame,
 } from "@/config/socket_karas";
 const PlayScreen = () => {
-  const [dropTime, setDroptime] = React.useState<null | number>(null);
   const [gameOver, setGameOver] = React.useState(false);
 
   const gameArea = React.useRef<HTMLDivElement>(null);
 
-  const { player, updatePlayerPos, resetPlayer, playerRotate } = usePlayer();
-  const { stage, setStage, rowsCleared } = useStage(player, resetPlayer);
-  const { score, setScore, rows, setRows, level, setLevel } =
-    useGameStatus(rowsCleared);
-
-  const movePlayer = (dir: number) => {
-    if (!isColliding(player, stage, { x: dir, y: 0 })) {
-      updatePlayerPos({ x: dir, y: 0, collided: false });
-    }
-  };
+  const { player, resetPlayer } = usePlayer();
+  const { stage, setStage } = useStage(player, resetPlayer);
+  const { gameStatus } = useGameStatus();
 
   const keyUp = ({ keyCode }: { keyCode: number }): void => {
     if (!gameOver) {
       // Change the droptime speed when user releases down arrow
       if (keyCode === 40) {
-        setDroptime(1000 / level + 200);
       }
     }
   };
@@ -54,12 +45,8 @@ const PlayScreen = () => {
     // Reset everything
     startGame();
     const data = await getBoardData();
-
     setStage(() => data);
-    setDroptime(1000);
     await resetPlayer();
-    setLevel(1);
-    setRows(0);
     setGameOver(false);
   };
 
@@ -86,32 +73,6 @@ const PlayScreen = () => {
     }
   };
 
-  const drop = async () => {
-    const data = await getBoardData();
-    console.log("Now Data", data);
-    // setStage(() => data);
-    // Increase level when player has cleared 10 rows
-    // if (rows > level * 10) {
-    //   setLevel((prev) => prev + 1);
-    //   // Also increase speed
-    //   setDroptime(1000 / level + 200);
-    // }
-
-    if (!isColliding(player, stage, { x: 0, y: 1 })) {
-      updatePlayerPos({ x: 0, y: 1, collided: false });
-    } else {
-      // Game over!
-      if (player.pos.y < 1) {
-        setGameOver(true);
-        setDroptime(null);
-      }
-      updatePlayerPos({ x: 0, y: 0, collided: true });
-    }
-  };
-
-  // useInterval(() => {
-  //   drop();
-  // }, dropTime);
   useEffect(() => {
     handleStartGame();
   }, []);
@@ -137,7 +98,7 @@ const PlayScreen = () => {
                     ))}
                   </div>
 
-                  <p className="score_txt">{score}</p>
+                  <p className="score_txt">{gameStatus.score}</p>
                   <p className="point_txt ">POINT</p>
 
                   <div className="modal-finish-bottom">
@@ -179,15 +140,15 @@ const PlayScreen = () => {
                 <div className="stat-rows">
                   <div className="stat-col">
                     <p className="title">Score</p>
-                    <p className="value">{score}</p>
+                    <p className="value">{gameStatus.score}</p>
                   </div>
                   <div className="stat-col">
                     <p className="title">Row(s)</p>
-                    <p className="value">{rows}</p>
+                    <p className="value">{gameStatus.rows}</p>
                   </div>
                   <div className="stat-col">
                     <p className="title">Level</p>
-                    <p className="value">{level}</p>
+                    <p className="value">{gameStatus.level}</p>
                   </div>
 
                   <StyledBlockCorner top={0} left={0} rotate={0} />

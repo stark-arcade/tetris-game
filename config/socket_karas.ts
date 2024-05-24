@@ -1,3 +1,5 @@
+import { STAGE } from "@/components/Stage/Stage";
+import { GameStatus } from "@/hooks/useGameStatus";
 import { PLAYER } from "@/hooks/usePlayer";
 import { ACCESS_TOKEN, Direction } from "@/utils/constants";
 import { getCookie } from "@/utils/cookie";
@@ -50,7 +52,7 @@ export const disconnectSocket = () => {
   socketGame2048.disconnect();
 };
 
-export function getBoardData(): Promise<number[][]> {
+export function getBoardData(): Promise<STAGE> {
   return new Promise((resolve) => {
     socketGame2048.on("board-updated", (data) => {
       resolve(data);
@@ -61,6 +63,14 @@ export function getBoardData(): Promise<number[][]> {
 export function getPlayerData(): Promise<PLAYER> {
   return new Promise((resolve) => {
     socketGame2048.on("player-updated", (data) => {
+      resolve(data);
+    });
+  });
+}
+
+export function getGameStatus(): Promise<GameStatus> {
+  return new Promise((resolve) => {
+    socketGame2048.on("game-status", (data) => {
       resolve(data);
     });
   });
