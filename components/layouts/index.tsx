@@ -11,10 +11,9 @@ const MainScreen = () => {
   const tickRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     if (tickRef.current) {
-      console.log("Sound", sound);
       if (sound) {
         tickRef.current.volume = 1;
-        console.log("Now Ref", tickRef.current.volume);
+        tickRef.current.play();
       } else {
         tickRef.current.volume = 0;
       }
@@ -41,7 +40,7 @@ const MainScreen = () => {
       {address ? <PlayScreen /> : <StartScreen />}
 
       <div className="asset-bg " />
-      <audio autoPlay={sound} loop src="/sounds/bg_music.mp3" ref={tickRef} />
+      {/* <audio autoPlay={sound} loop src="/sounds/bg_music.mp3" ref={tickRef} /> */}
     </div>
   );
 };

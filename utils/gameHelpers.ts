@@ -21,14 +21,6 @@ export const randomTetromino = () => {
   return TETROMINOS[randTetromino];
 };
 
-/**
- * Checks if the player's tetromino is colliding with the stage.
- *
- * @param player - The player object representing the current tetromino.
- * @param stage - The stage object representing the game board.
- * @param move - The movement object containing the x and y coordinates to move the tetromino.
- * @returns True if there is a collision, false otherwise.
- */
 export const isColliding = (
   player: PLAYER,
   stage: STAGE,

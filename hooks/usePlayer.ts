@@ -2,6 +2,7 @@ import React from "react";
 import { STAGE_WIDTH } from "../utils/setup";
 import { isColliding, randomTetromino } from "../utils/gameHelpers";
 import { STAGE } from "./useStage";
+import { getPlayerData } from "@/config/socket_karas";
 
 export type PLAYER = {
   pos: {
@@ -58,15 +59,16 @@ export const usePlayer = () => {
     }));
   };
 
-  const resetPlayer = React.useCallback(
-    (): void =>
-      setPlayer({
-        pos: { x: STAGE_WIDTH / 2 - 2, y: 0 },
-        tetromino: randomTetromino().shape,
-        collided: false,
-      }),
-    []
-  );
+  const resetPlayer = async () => {
+    const data = await getPlayerData();
+    console.log("Player", data);
+    setPlayer((prev) => ({
+      ...prev,
+      pos: data.pos,
+      tetromino: data.tetromino,
+      collided: false,
+    }));
+  };
 
   return { player, updatePlayerPos, resetPlayer, playerRotate };
 };

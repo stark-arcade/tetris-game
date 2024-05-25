@@ -1,5 +1,11 @@
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { axiosHandlerNoBearer } from "@/config/axios";
+import { disconnectSocket } from "@/config/socket_karas";
+
+import useSessionStorage from "@/hooks/useSessionStorage";
+import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
+import { deleteCookie, setCookie } from "@/utils/cookie";
 import { useAccount, useConnect } from "@starknet-react/core";
+
 import React, {
   PropsWithChildren,
   createContext,
@@ -12,7 +18,7 @@ interface IWalletConnectionProps {
   toggleSound: () => void;
   address?: string;
   sound: boolean; // turn on or off
-  chain_id?: number; // SNIPPET chain ID is Argentx or Bravoos
+  chain_id?: number;
 }
 const initalValue: IWalletConnectionProps = {
   connectWallet: () => {},
@@ -30,16 +36,16 @@ interface Configuration {
 export const WalletContext = createContext<IWalletConnectionProps>(initalValue);
 const APP_NAME = "StarkArcade_Teris";
 const ProviderWalletContext = ({ children }: PropsWithChildren) => {
-  const { address: addressWallet, status: statusWallet } = useAccount();
-  const [config, setConfig] = useLocalStorage<Configuration>(
-    APP_NAME,
-    {
-      address: undefined,
-      chain_id: undefined,
-      sound: true,
-    },
-    24 * 60 * 60 * 1000 + Date.now() // 1days
-  );
+  const {
+    address: addressWallet,
+    status: statusWallet,
+    account,
+  } = useAccount();
+  const [config, setConfig] = useSessionStorage<Configuration>(APP_NAME, {
+    address: undefined,
+    chain_id: undefined,
+    sound: false,
+  });
   const [address, setAddress] = React.useState(config.address);
   const [chain_id, setChainId] = React.useState(config.chain_id);
   const [sound, setSound] = React.useState(config.sound);
@@ -48,22 +54,64 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   /// Custom
   const connectWallet = async (index: number) => {
     await connect({ connector: connectors[index] });
-    await setChainId(index);
+    try {
+      if (account) {
+        const { data: dataSignMessage } = await axiosHandlerNoBearer.get(
+          "/authentication/get-nonce",
+          {
+            params: {
+              address: addressWallet,
+            },
+          }
+        );
+
+        const signature = await account.signMessage(
+          dataSignMessage.data.signMessage
+        );
+
+        const { data: dataToken } = await axiosHandlerNoBearer.post(
+          "/authentication/token",
+          {
+            address: addressWallet,
+            signature: signature,
+            rpc: RPC_VALUE.RPC_TESTNET,
+          }
+        );
+        setAddress(addressWallet);
+
+        setConfig({
+          ...config,
+          address: addressWallet,
+          chain_id: index,
+        });
+
+        setCookie({
+          expires: "1d",
+          key: ACCESS_TOKEN,
+          value: dataToken.data.token,
+        });
+      }
+    } catch (error) {
+      console.log("ERROR", error);
+    }
   };
   const disconnectWallet = () => {
     setConfig({ address: undefined, chain_id: undefined, sound: true });
     setAddress(undefined);
     setChainId(undefined);
+    deleteCookie(ACCESS_TOKEN);
+    disconnectSocket();
   };
   const toggleSound = () => {
     setSound(() => !sound);
   };
   useEffect(() => {
-    if (addressWallet && addressWallet !== address && chain_id != undefined) {
-      setAddress(addressWallet);
-      console.log("Update Adress");
-      setConfig({ ...config, address: addressWallet, chain_id: chain_id });
-    }
+    const handleChangeWallet = async () => {
+      if (addressWallet && addressWallet !== address && chain_id != undefined) {
+        await connectWallet(chain_id);
+      }
+    };
+    handleChangeWallet();
   }, [addressWallet, chain_id]);
   useEffect(() => {
     const handleReConenct = async () => {

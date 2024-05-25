@@ -1,17 +1,31 @@
+import { DEFAULT_DROP_TIME } from "./../utils/constants";
 import React from "react";
-import { ROWPOINTS } from "../utils/setup";
 
-export const useGameStatus = (rowsCleared: number) => {
-  const [score, setScore] = React.useState(0);
-  const [rows, setRows] = React.useState(0);
-  const [level, setLevel] = React.useState(1);
+import { getGamePoint } from "@/config/socket_karas";
 
-  React.useEffect(() => {
-    if (rowsCleared > 0) {
-      setScore((prev) => prev + ROWPOINTS[rowsCleared - 1] * level);
-      setRows((prev) => prev + rowsCleared);
-    }
-  }, [rowsCleared]);
+export type TetrisGameStatus = "started" | "lost" | "paused";
+export interface GameStatus {
+  status?: "started" | "lost" | "paused";
+  score: number;
+  level: number;
+  rows: number;
+  isClaimable: boolean;
+  interval: number;
+}
+const initialStatus: GameStatus = {
+  status: undefined,
+  score: 0,
+  level: 1,
+  rows: 0,
+  isClaimable: false,
+  interval: DEFAULT_DROP_TIME,
+};
 
-  return { score, setScore, rows, setRows, level, setLevel };
+export const useGameStatus = () => {
+  const [gameStatus, setGameStatus] = React.useState<GameStatus>(initialStatus);
+
+  return {
+    gameStatus,
+    setGameStatus,
+  };
 };
