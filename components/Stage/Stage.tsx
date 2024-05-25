@@ -2,7 +2,7 @@ import React from "react";
 import Cell from "../Cell/Cell";
 import { StyledStage } from "./Stage.styles";
 import { TETROMINOS } from "../../utils/setup";
-import { getBoardData } from "@/config/socket_karas";
+import { getBoardData, getGameStatus } from "@/config/socket_karas";
 import { createStage } from "@/utils/gameHelpers";
 import { useGameStatus } from "@/hooks/useGameStatus";
 
@@ -20,17 +20,10 @@ const Stage: React.FC<Props> = () => {
     const handleLoadData = async () => {
       const data = await getBoardData();
       setStage(() => data);
+      const dataGameStatus = await getGameStatus();
+      setGameStatus(() => dataGameStatus);
     };
-    // socketGame2048.on("board-updated", (data: any) => {
-    //   if (data) {
-    //     setStage(() => data);
-    //   }
-    // });
-    // socketGame2048.on("game-status", (data) => {
-    //   if (data) {
-    //     setGameStatus(() => data);
-    //   }
-    // });
+
     handleLoadData();
   }, gameStatus.interval);
 
