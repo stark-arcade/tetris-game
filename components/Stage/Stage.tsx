@@ -9,11 +9,7 @@ import { useGameStatus } from "@/hooks/useGameStatus";
 export type STAGECELL = [keyof typeof TETROMINOS, string];
 export type STAGE = STAGECELL[][];
 
-type Props = {
-  stage: STAGE;
-};
-
-const Stage: React.FC<Props> = () => {
+const Stage: React.FC = () => {
   const [stage, setStage] = React.useState<STAGE>(createStage());
   const { gameStatus, setGameStatus } = useGameStatus();
   setInterval(() => {

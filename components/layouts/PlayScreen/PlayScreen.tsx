@@ -188,7 +188,7 @@ const PlayScreen = () => {
             </>
           )}
         </div>
-        <Stage stage={stage} />
+        <Stage />
         <Image
           src="/assets/arts/teris_game.svg"
           alt=""
