@@ -1,11 +1,10 @@
 "use client";
 import { useGameStatus } from "@/hooks/useGameStatus";
-import { usePlayer } from "@/hooks/usePlayer";
+
 import { useStage } from "@/hooks/useStage";
 import { createStage, isColliding } from "@/utils/gameHelpers";
 import React, { useEffect } from "react";
 import { StyledTetris, StyledTetrisWrapper } from "./PlayScreen.styles";
-import { useInterval } from "@/hooks/useInterval";
 
 import Stage from "@/components/Stage/Stage";
 import { StyledBlockCorner } from "../StartScreen/StartScreen.styles";
@@ -13,7 +12,7 @@ import Image from "next/image";
 
 import Modal from "@/components/Modal";
 import StarScore from "@/components/Stage/StarScore";
-import { StyledPlayButton } from "@/components/Button/Button.styles";
+
 import { useWalletContext } from "@/Provider/ProviderWalletContext";
 import {
   connectSocket,
@@ -21,13 +20,13 @@ import {
   senderCommand,
   startGame,
 } from "@/config/socket_karas";
+import { Button } from "@chakra-ui/react";
+
 const PlayScreen = () => {
   const [gameOver, setGameOver] = React.useState(false);
 
   const gameArea = React.useRef<HTMLDivElement>(null);
 
-  const { player, resetPlayer } = usePlayer();
-  const { stage, setStage } = useStage(player, resetPlayer);
   const { gameStatus } = useGameStatus();
 
   const keyUp = ({ keyCode }: { keyCode: number }): void => {
@@ -44,9 +43,6 @@ const PlayScreen = () => {
     if (gameArea.current) gameArea.current.focus();
     // Reset everything
     startGame();
-    const data = await getBoardData();
-    setStage(() => data);
-    await resetPlayer();
     setGameOver(false);
   };
 
@@ -116,7 +112,7 @@ const PlayScreen = () => {
                       />
                     </button>
 
-                    <StyledPlayButton>Claim</StyledPlayButton>
+                    <Button variant="primary">Claim</Button>
                     <button
                       className="icon_btn"
                       onClick={async () => {
