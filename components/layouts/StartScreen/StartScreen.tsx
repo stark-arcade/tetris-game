@@ -11,7 +11,7 @@ import BlockConner from "@/components/BlockCorner";
 import ConnectWallet from "@/components/ConnectWallet";
 
 const StartScreen = () => {
-  const { sound, toggleSound } = useWalletContext();
+  const { sound, handleToggleSound } = useWalletContext();
 
   return (
     <StyledStartScreen>
@@ -24,7 +24,7 @@ const StartScreen = () => {
             right: "10px",
           }}
           onClick={async () => {
-            toggleSound();
+            handleToggleSound();
           }}
         >
           <Image

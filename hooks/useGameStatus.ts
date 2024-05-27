@@ -1,7 +1,7 @@
 import { DEFAULT_DROP_TIME } from "./../utils/constants";
 import React from "react";
 
-import { getGamePoint } from "@/config/socket_karas";
+import { getGamePoint, socketGame2048 } from "@/config/socket_karas";
 
 export type TetrisGameStatus = "started" | "lost" | "paused";
 export interface GameStatus {
