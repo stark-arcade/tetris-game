@@ -1,11 +1,8 @@
-import { DEFAULT_DROP_TIME } from "./../utils/constants";
 import React from "react";
-
-import { getGamePoint, socketGame2048 } from "@/config/socket_karas";
 
 export type TetrisGameStatus = "started" | "lost" | "paused";
 export interface GameStatus {
-  status?: "started" | "lost" | "paused";
+  status?: TetrisGameStatus;
   score: number;
   level: number;
   rows: number;
@@ -21,7 +18,6 @@ const initialStatus: GameStatus = {
 
 export const useGameStatus = () => {
   const [gameStatus, setGameStatus] = React.useState<GameStatus>(initialStatus);
-
   return {
     gameStatus,
     setGameStatus,

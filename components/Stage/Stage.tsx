@@ -2,14 +2,7 @@ import React, { useEffect } from "react";
 import Cell from "../Cell/Cell";
 import { StyledStage } from "./Stage.styles";
 import { TETROMINOS, createStage } from "../../utils/setup";
-import {
-  getBoardData,
-  getGameStatus,
-  socketGame2048,
-} from "@/config/socket_karas";
-
-import { useGameStatus } from "@/hooks/useGameStatus";
-import { Box } from "@chakra-ui/react";
+import { socketGame2048 } from "@/config/socket_karas";
 
 export type STAGECELL = [keyof typeof TETROMINOS, string];
 export type STAGE = STAGECELL[][];

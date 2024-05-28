@@ -1,4 +1,8 @@
-import { claimPoint, getClaimPointInfo } from "@/config/socket_karas";
+import {
+  claimPoint,
+  getClaimPointInfo,
+  startGame,
+} from "@/config/socket_karas";
 import {
   Button,
   HStack,
@@ -17,16 +21,16 @@ import StarIcon from "@/public/assets/arts/star.svg";
 import { useAccount } from "@starknet-react/core";
 import { CallData } from "starknet";
 import { CONTRACT_ADDRESS } from "@/utils/constants";
-import { useGameStatus } from "@/hooks/useGameStatus";
+import { GameStatus, useGameStatus } from "@/hooks/useGameStatus";
 import ResetGame from "../Stage/GameControl/ResetGame";
 import AccountSetting from "../Stage/GameControl/AccountSetting";
 // Claim When Game Lost Or Win
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
+  gameStatus: GameStatus;
 }
-const ModalGameClaim = ({ isOpen, onClose }: IProps) => {
-  const { gameStatus } = useGameStatus();
+const ModalGameClaim = ({ isOpen, onClose, gameStatus }: IProps) => {
   const { account } = useAccount();
   const handleClaimPoint = async () => {
     try {
@@ -44,7 +48,7 @@ const ModalGameClaim = ({ isOpen, onClose }: IProps) => {
             }),
           },
         ]);
-
+        startGame();
         onClose();
       }
     } catch (error) {
@@ -86,6 +90,7 @@ const ModalGameClaim = ({ isOpen, onClose }: IProps) => {
         <ModalFooter justifyContent="center" alignItems="center">
           <ResetGame />
           <Button
+            isDisabled={!gameStatus.isClaimable}
             onClick={async () => {
               await handleClaimPoint();
             }}

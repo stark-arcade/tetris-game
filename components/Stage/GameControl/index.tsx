@@ -5,12 +5,20 @@ import ResetGame from "./ResetGame";
 import AccountSetting from "./AccountSetting";
 import ToggleSound from "./ToggleSound";
 import Score from "./Score";
-const GameControl = () => {
+import { GameStatus } from "@/hooks/useGameStatus";
+interface IProps {
+  gameStatus: GameStatus;
+}
+const GameControl = ({ gameStatus }: IProps) => {
   return (
     <Box textAlign="left">
-      <Score />
+      <Score
+        point={gameStatus.score}
+        level={gameStatus.level}
+        rows={gameStatus.rows}
+      />
       <HStack>
-        <StopGame />
+        <StopGame gameStatus={gameStatus} />
         <ResetGame />
         <AccountSetting />
         <ToggleSound />

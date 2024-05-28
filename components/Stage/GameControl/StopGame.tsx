@@ -28,10 +28,13 @@ import { CallData } from "starknet";
 
 import { CONTRACT_ADDRESS } from "@/utils/constants";
 import AccountSetting from "./AccountSetting";
-import { useGameStatus } from "@/hooks/useGameStatus";
-const StopGame = () => {
+import { GameStatus } from "@/hooks/useGameStatus";
+interface IProps {
+  gameStatus: GameStatus;
+}
+const StopGame = ({ gameStatus }: IProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { gameStatus, setGameStatus } = useGameStatus();
+
   const { account } = useAccount();
   const toast = useToast();
   const handleClaimPoint = async () => {
@@ -64,11 +67,10 @@ const StopGame = () => {
     }
   };
   const handlePauseGame = () => {
-    if (gameStatus.status != "started") {
+    if (gameStatus.status != "paused") {
       socketGame2048.emit("pause");
-    }
-    if (gameStatus.status == "paused") {
-      socketGame2048.emit("resume");
+    } else if (gameStatus.status == "paused") {
+      console.log("Resume");
     }
   };
   return (
@@ -79,7 +81,7 @@ const StopGame = () => {
             variant="icon_btn"
             onClick={async () => {
               onOpen();
-              handlePauseGame();
+              socketGame2048.emit("pause");
             }}
           >
             <Icon as={StopIcon} height={6} width={6} />
@@ -123,6 +125,7 @@ const StopGame = () => {
                   variant="icon_btn"
                   onClick={() => {
                     onClose();
+                    socketGame2048.emit("resume");
                   }}
                 >
                   <Icon as={ResumeIcon} height={6} width={6} />
@@ -132,6 +135,7 @@ const StopGame = () => {
                   sx={{
                     maxWidth: "220px",
                   }}
+                  isDisabled={!gameStatus.isClaimable}
                   onClick={async () => {
                     await handleClaimPoint();
                   }}

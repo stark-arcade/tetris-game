@@ -5,20 +5,16 @@ import React, { useEffect } from "react";
 import { StyledTetris, StyledTetrisWrapper } from "./PlayScreen.styles";
 
 import Stage from "@/components/Stage/Stage";
-import { StyledBlockCorner } from "../StartScreen/StartScreen.styles";
+
 import Image from "next/image";
 
-import Modal from "@/components/Modal";
-
-import { useWalletContext } from "@/Provider/ProviderWalletContext";
 import {
   connectSocket,
   senderCommand,
   socketGame2048,
   startGame,
 } from "@/config/socket_karas";
-import { Button } from "@chakra-ui/react";
-import StarScore from "@/components/Stage/GameControl/StarScore";
+
 import GameControl from "@/components/Stage/GameControl";
 import ModalGameClaim from "@/components/Modal/ModalGameClaim";
 
@@ -28,9 +24,8 @@ const PlayScreen = () => {
   const { gameStatus, setGameStatus } = useGameStatus();
 
   const handleStartGame = async () => {
-    // Need to focus the window with the key events on start
-    connectSocket();
     if (gameArea.current) gameArea.current.focus();
+    connectSocket();
     startGame();
   };
 
@@ -56,44 +51,40 @@ const PlayScreen = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   if (initialized.current === false && gameState.board.length === 0) {
-  //     connectSocket();
-  //     startGame();
-  //     initialized.current = true;
-  //   }
-  // }, [startGame]);
+
   useEffect(() => {
     handleStartGame();
   }, []);
-  if (socketGame2048) {
-    socketGame2048.on("game-row", (data) => {
-      setGameStatus((prev) => ({
-        ...prev,
-        rows: data,
-      }));
-    });
-    socketGame2048.on("game-level", (data) => {
-      setGameStatus((prev) => ({
-        ...prev,
-        level: data,
-      }));
-      socketGame2048.on("game-point", (data) => {
+  useEffect(() => {
+    if (socketGame2048) {
+      socketGame2048.on("game-row", (data) => {
         setGameStatus((prev) => ({
           ...prev,
-          score: data.point,
-          isClaimable: data.claimable,
+          rows: data,
         }));
       });
-    });
-    socketGame2048.on("game-status", (data) => {
-      setGameStatus((prev) => ({
-        ...prev,
-        status: data,
-      }));
-    });
-  }
-  const { disconnectWallet } = useWalletContext();
+      socketGame2048.on("game-level", (data) => {
+        setGameStatus((prev) => ({
+          ...prev,
+          level: data,
+        }));
+        socketGame2048.on("game-point", (data) => {
+          setGameStatus((prev) => ({
+            ...prev,
+            score: data.point,
+            isClaimable: data.claimable,
+          }));
+        });
+      });
+      socketGame2048.on("game-status", (data) => {
+        setGameStatus((prev) => ({
+          ...prev,
+          status: data,
+        }));
+      });
+    }
+  }, [socketGame2048]);
+
   return (
     <StyledTetrisWrapper
       role="button"
@@ -102,7 +93,7 @@ const PlayScreen = () => {
       ref={gameArea}
     >
       <StyledTetris>
-        <GameControl />
+        <GameControl gameStatus={gameStatus} />
         <Stage />
         <Image
           src="/assets/arts/teris_game.svg"
@@ -111,6 +102,7 @@ const PlayScreen = () => {
           width={112}
         />
         <ModalGameClaim
+          gameStatus={gameStatus}
           isOpen={gameStatus.status == "lost"}
           onClose={() => {}}
         />
