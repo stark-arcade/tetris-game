@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cell from "../Cell/Cell";
 import { StyledStage } from "./Stage.styles";
-import { TETROMINOS } from "../../utils/setup";
+import { TETROMINOS, createStage } from "../../utils/setup";
+import { socketGame2048 } from "@/config/socket_karas";
 
 export type STAGECELL = [keyof typeof TETROMINOS, string];
 export type STAGE = STAGECELL[][];
 
-type Props = {
-  stage: STAGE;
-};
+const Stage: React.FC = () => {
+  const [stage, setStage] = React.useState<STAGE>(createStage());
 
-const Stage: React.FC<Props> = ({ stage }) => (
-  <StyledStage>
-    {stage.map((row) => row.map((cell, x) => <Cell key={x} type={cell[0]} />))}
-  </StyledStage>
-);
+  if (socketGame2048) {
+    socketGame2048.on("board-updated", (data) => {
+      setStage(() => data);
+    });
+  }
+
+  return (
+    <StyledStage>
+      {stage.map((row) =>
+        row.map((cell, x) => <Cell key={x} type={cell[0]} />)
+      )}
+    </StyledStage>
+  );
+};
 
 export default Stage;
