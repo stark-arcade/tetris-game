@@ -15,7 +15,7 @@ import React, {
 interface IWalletConnectionProps {
   connectWallet: (index: number) => void;
   disconnectWallet: () => void;
-  toggleSound: () => void;
+  handleToggleSound: () => void;
   address?: string;
   sound: boolean; // turn on or off
   chain_id?: number;
@@ -23,7 +23,7 @@ interface IWalletConnectionProps {
 const initalValue: IWalletConnectionProps = {
   connectWallet: () => {},
   disconnectWallet: () => {},
-  toggleSound: () => {},
+  handleToggleSound: () => {},
   sound: false,
   address: "",
   chain_id: 0,
@@ -74,7 +74,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
           {
             address: addressWallet,
             signature: signature,
-            rpc: RPC_VALUE.RPC_TESTNET,
+            rpc: RPC_VALUE.RPC_MAINNET,
           }
         );
         setAddress(addressWallet);
@@ -102,7 +102,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
     deleteCookie(ACCESS_TOKEN);
     disconnectSocket();
   };
-  const toggleSound = () => {
+  const handleToggleSound = async () => {
     setSound(() => !sound);
   };
   useEffect(() => {
@@ -129,7 +129,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
         chain_id,
         connectWallet,
         disconnectWallet,
-        toggleSound,
+        handleToggleSound,
       }}
     >
       {children}

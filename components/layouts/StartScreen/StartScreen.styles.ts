@@ -32,16 +32,3 @@ type PropsBlock = {
   right?: number;
   rotate: number;
 };
-export const StyledBlockCorner = styled.div<PropsBlock>`
-  position: absolute;
-  height: 14px;
-  width: 14px;
-  border: 1px solid rgba(64, 233, 241, 1);
-  top: ${(props) => props.top}px;
-  left: ${(props) => props.left}px;
-  bottom: ${(props) => props.bottom}px;
-  right: ${(props) => props.right}px;
-  transform: rotate(${(props) => props.rotate}deg);
-  border-right: none;
-  border-bottom: none;
-`;

@@ -40,7 +40,7 @@ const MainScreen = () => {
       {address ? <PlayScreen /> : <StartScreen />}
 
       <div className="asset-bg " />
-      {/* <audio autoPlay={sound} loop src="/sounds/bg_music.mp3" ref={tickRef} /> */}
+      <audio autoPlay={sound} loop src="/sounds/bg_music.mp3" ref={tickRef} />
     </div>
   );
 };

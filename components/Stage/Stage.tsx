@@ -1,27 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cell from "../Cell/Cell";
 import { StyledStage } from "./Stage.styles";
-import { TETROMINOS } from "../../utils/setup";
-import { getBoardData, getGameStatus } from "@/config/socket_karas";
-import { createStage } from "@/utils/gameHelpers";
-import { useGameStatus } from "@/hooks/useGameStatus";
+import { TETROMINOS, createStage } from "../../utils/setup";
+import { socketGame2048 } from "@/config/socket_karas";
 
 export type STAGECELL = [keyof typeof TETROMINOS, string];
 export type STAGE = STAGECELL[][];
 
 const Stage: React.FC = () => {
   const [stage, setStage] = React.useState<STAGE>(createStage());
-  const { gameStatus, setGameStatus } = useGameStatus();
-  setInterval(() => {
-    const handleLoadData = async () => {
-      const data = await getBoardData();
-      setStage(() => data);
-      const dataGameStatus = await getGameStatus();
-      setGameStatus(() => dataGameStatus);
-    };
 
-    handleLoadData();
-  }, gameStatus.interval);
+  if (socketGame2048) {
+    socketGame2048.on("board-updated", (data) => {
+      setStage(() => data);
+    });
+  }
 
   return (
     <StyledStage>
