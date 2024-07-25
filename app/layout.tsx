@@ -7,7 +7,7 @@ import { Nunito_Sans } from "next/font/google";
 const nutino = Nunito_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Teris Game | StarkArcade Hub",
-  metadataBase: new URL("https://teris-game.starkarcade.com/"),
+  metadataBase: new URL("https://tetris-game.starkarcade.com/"),
   description:
     "Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet",
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: "en_US",
-    url: "https://teris-game.starkarcade.com/",
+    url: "https://tetris-game.starkarcade.com/",
     type: "website",
     emails: "karasbuilder@gmail.com",
     siteName: "Tetris Game",
@@ -44,12 +44,12 @@ export const metadata: Metadata = {
       url: "https://tetris-game.starkarcade.com/assets/banner/banner.png",
       alt: "Tetris Banner",
     },
-    site: "https://teris-game.starkarcade.com/",
+    site: "https://tetris-game.starkarcade.com",
     card: "player",
     creator: "@starkarcade",
     players: {
-      playerUrl: "https://teris-game.starkarcade.com",
-      streamUrl: "https://teris-game.starkarcade.com",
+      playerUrl: "https://tetris-game.starkarcade.com",
+      streamUrl: "https://tetris-game.starkarcade.com",
       width: 600,
       height: 600,
     },
