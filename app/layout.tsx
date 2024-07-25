@@ -40,9 +40,15 @@ export const metadata: Metadata = {
     title: "Teris Game | StarkArcade Hub",
     description:
       "Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet",
-    // images: "./public/assets/banner/banner.png",
+    images: "./public/assets/banner/banner.png",
     site: "https://teris-game.starkarcade.com/",
     creator: "@StarkArcade Hub",
+    players: {
+      playerUrl: "https://teris-game.starkarcade.com",
+      streamUrl: "https://teris-game.starkarcade.com",
+      width: 360,
+      height: 560,
+    },
   },
   category: "technology",
 };
@@ -54,6 +60,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* <head>
+        <meta name="twitter:card" content="player" />
+        <meta name="twitter:site" content="@starkarcade" />
+        <meta name="twitter:title" content="Teris Game | StarkArcade Hub" />
+        <meta
+          name="twitter:description"
+          content="Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet"
+        />
+        <meta
+          name="twitter:player"
+          content="https://your-domain.com/twitter-card.html"
+        />
+        <meta name="twitter:player:width" content="360" />
+        <meta name="twitter:player:height" content="560" />
+        <meta
+          name="twitter:image"
+          content="https://teris-game.starkarcade.com/"
+        />
+      </head> */}
       <body className={nutino.className}>
         <ProviderApp>{children}</ProviderApp>
       </body>
