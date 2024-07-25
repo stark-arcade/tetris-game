@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       "Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet",
     images: [
       {
-        url: "./public/assets/banner/banner.png",
+        url: "https://tetris-game.starkarcade.com/assets/banner/banner.png",
         width: 1200,
         height: 600,
         type: "image/png",
@@ -40,7 +40,10 @@ export const metadata: Metadata = {
     title: "Teris Game | StarkArcade Hub",
     description:
       "Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet",
-    images: { url: "./public/assets/banner/banner.png", alt: "Tetris Banner" },
+    images: {
+      url: "https://tetris-game.starkarcade.com/assets/banner/banner.png",
+      alt: "Tetris Banner",
+    },
     site: "https://teris-game.starkarcade.com/",
     card: "player",
     creator: "@starkarcade",
