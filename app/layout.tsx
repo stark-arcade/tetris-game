@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     other: { rel: "apple-touch-icon-precomposed", url: Favicon.src },
   },
 
-  keywords: ["StarkPot", "What is StarkPot", "StarkArcade Hub"],
+  keywords: ["Tetris", "What is Tetris", "StarkArcade Hub"],
   openGraph: {
     title: "Teris Game | StarkArcade Hub",
     description:
@@ -34,20 +34,21 @@ export const metadata: Metadata = {
     url: "https://teris-game.starkarcade.com/",
     type: "website",
     emails: "karasbuilder@gmail.com",
-    siteName: "StarkPot",
+    siteName: "Tetris Game",
   },
   twitter: {
     title: "Teris Game | StarkArcade Hub",
     description:
       "Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet",
-    images: "./public/assets/banner/banner.png",
+    images: { url: "./public/assets/banner/banner.png", alt: "Tetris Banner" },
     site: "https://teris-game.starkarcade.com/",
-    creator: "@StarkArcade Hub",
+    card: "player",
+    creator: "@starkarcade",
     players: {
       playerUrl: "https://teris-game.starkarcade.com",
       streamUrl: "https://teris-game.starkarcade.com",
-      width: 360,
-      height: 560,
+      width: 600,
+      height: 600,
     },
   },
   category: "technology",
@@ -60,25 +61,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-        <meta name="twitter:card" content="player" />
-        <meta name="twitter:site" content="@starkarcade" />
-        <meta name="twitter:title" content="Teris Game | StarkArcade Hub" />
-        <meta
-          name="twitter:description"
-          content="Starknet Arcade Hub is a tribute to our NFT community and one of the largest mini-games hub for the Starknet Degens. The first product with upcominng Beta will be a CoinFlip game, allowing folks to place bets and multiply their $ETH holdings on Starknet"
-        />
-        <meta
-          name="twitter:player"
-          content="https://your-domain.com/twitter-card.html"
-        />
-        <meta name="twitter:player:width" content="360" />
-        <meta name="twitter:player:height" content="560" />
-        <meta
-          name="twitter:image"
-          content="https://teris-game.starkarcade.com/"
-        />
-      </head> */}
       <body className={nutino.className}>
         <ProviderApp>{children}</ProviderApp>
       </body>
